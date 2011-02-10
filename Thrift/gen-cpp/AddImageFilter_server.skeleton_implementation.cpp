@@ -9,6 +9,7 @@
 
 #include <sitkImage.h>
 #include <sitkAddImageFilter.h>
+#include "sitkImageToThriftImageAdaptor.h"
 
 using namespace ::apache::thrift;
 using namespace ::apache::thrift::protocol;
@@ -25,14 +26,19 @@ class AddImageFilterHandler : virtual public ::thrift::AddImageFilterIf {
 
   void execute( ::thrift::Image& _return, const  ::thrift::Image& image1, const  ::thrift::Image& image2) {
 
-    ::itk::simple::Image::Pointer itkImage1;   // copy from image1
-    itk::simple::Image::Pointer itkImage2;   // copy from image2
+    ::itk::simple::Image::Pointer itkImage1 = ::itk::thrift::ImageAdaptor::Convert( image1 );
+    ::itk::simple::Image::Pointer itkImage2 = ::itk::thrift::ImageAdaptor::Convert( image2 );
 
-    itk::simple::AddImageFilter filter;
+    printf("after converting to ITK images \n");
 
-    itk::simple::Image::Pointer itkImageOutput = filter.Execute( itkImage1, itkImage2 );
+    ::itk::simple::AddImageFilter filter;
 
-    // TODO convert itkImageOutput to the output Image structure
+    // ::itk::simple::Image::Pointer itkImageOutput = filter.Execute( itkImage1, itkImage2 );
+
+    printf("after running filter\n");
+
+    //    _return = ::itk::thrift::ImageAdaptor::Convert( itkImageOutput );
+    _return = ::itk::thrift::ImageAdaptor::Convert( itkImage1 );
 
     printf("execute\n");
   }

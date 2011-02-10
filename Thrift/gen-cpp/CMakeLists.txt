@@ -1,8 +1,3 @@
-include_directories(
-  /home/ibanez/local/thirft/include/thrift/
-  /home/ibanez/src/Insight4/SimpleITK/Thrift/gen-cpp
-  )
-
 add_library(ThriftImageLib
   AddImageFilter.cpp
   image_constants.cpp
@@ -16,4 +11,8 @@ add_executable( AddImageFilterServer
   AddImageFilter_server.skeleton_implementation.cpp
   )
 
-target_link_libraries(AddImageFilterServer ThriftImageLib)
+# link_directories( /home/ibanez/src/thirft/thrift-0.6.0/lib/cpp/.libs/ )
+
+target_link_libraries(AddImageFilterServer ThriftImageLib
+  /home/ibanez/src/thirft/thrift-0.6.0/lib/cpp/.libs/libthrift.a
+)
