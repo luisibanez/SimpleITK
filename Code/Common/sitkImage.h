@@ -56,13 +56,13 @@ namespace simple
 
     unsigned int GetDimension( void ) const;
 
-    uint64_t GetHeight( void );
-    uint64_t GetWidth( void );
-    uint64_t GetDepth( void );
+    uint64_t GetHeight( void ) const;
+    uint64_t GetWidth( void ) const;
+    uint64_t GetDepth( void ) const;
 
 
     std::string GetPixelIDTypeAsString( void ) const;
-    std::string ToString( void );
+    std::string ToString( void ) const;
 
     typedef AllPixelIDTypeList PixelIDTypeList;
     typedef void (Self::*MemberFunctionType)( uint64_t Width, uint64_t Height, uint64_t Depth );

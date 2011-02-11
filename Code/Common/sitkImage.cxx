@@ -316,25 +316,25 @@ namespace itk
       return std::string( GetPixelIDValueAsString( this->GetPixelIDValue() ) );
     }
 
-    std::string Image::ToString( void )
+    std::string Image::ToString( void ) const
     {
       assert( m_PimpleImage );
       return this->m_PimpleImage->ToString();
     }
 
-    uint64_t Image::GetWidth( void )
+    uint64_t Image::GetWidth( void ) const
     {
       assert( m_PimpleImage );
       return this->m_PimpleImage->GetWidth();
     }
 
-    uint64_t Image::GetHeight( void )
+    uint64_t Image::GetHeight( void ) const
     {
       assert( m_PimpleImage );
       return this->m_PimpleImage->GetHeight();
     }
 
-    uint64_t Image::GetDepth( void )
+    uint64_t Image::GetDepth( void ) const
     {
       assert( m_PimpleImage );
       return this->m_PimpleImage->GetDepth();

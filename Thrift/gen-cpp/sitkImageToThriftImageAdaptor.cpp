@@ -12,6 +12,15 @@ namespace thrift
 ImageAdaptor::Convert( const itk::simple::Image * inputImage )
 {
   ::thrift::Image outputImage;
+
+  outputImage.width  = inputImage->GetWidth();
+  outputImage.height = inputImage->GetHeight();
+
+  itk::simple::PixelContainer::Pointer pixelContainer = inputImage->GetPixelContainer();
+
+  outputImage.buffer = pixelContainer->GetBufferAsInt8();
+
+  return outputImage;
 }
 
 
@@ -32,6 +41,20 @@ ImageAdaptor::Convert( const ::thrift::Image & inputImage )
 
     ImporterType::Pointer importer = ImporterType::New();
 
+    ImageType::RegionType  region;
+    ImageType::IndexType   index;
+    ImageType::SizeType    size;
+
+    index.Fill(0);
+
+    size[0] = inputImage.with;
+    size[1] = inputImage.height;
+
+    region.SetSize( size );
+    region.SetIndex( index );
+
+    import->SetRegion( region );
+
     bool LetFilterManageMemory = false;
     SizeValueType numberOfPixels = sizeof(PixelType) * inputImage.width * inputImage.height;
 
@@ -42,6 +65,8 @@ ImageAdaptor::Convert( const ::thrift::Image & inputImage )
     importer->Update();
 
     outputImage = new itk::simple::Image( importer->GetOutput() );
+
+    importer->GetOutput()->Print( std::cout );
 
     break;
     }

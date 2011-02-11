@@ -29,7 +29,7 @@ namespace itk
       return std::string( GetPixelIDValueAsString( this->GetPixelIDValue() ) );
     }
 
-    std::string PixelContainer::ToString( void )
+    std::string PixelContainer::ToString( void ) const
     {
       assert( m_Internal );
       return this->m_Internal->ToString();

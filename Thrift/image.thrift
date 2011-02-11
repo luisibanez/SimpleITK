@@ -16,7 +16,7 @@ struct Image  {
   3: i64 depth  = 1,
 //  4: binary buffer,
   4: list<byte> buffer,
-  5: PixelType pixeltype,
+  5: PixelType pixeltype = 2,
   6: i16 endianness,
 }
 

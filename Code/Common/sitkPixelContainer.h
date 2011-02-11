@@ -41,7 +41,7 @@ namespace itk
 
       PixelIDValueType GetPixelIDValue( void ) const;
       std::string GetPixelIDTypeAsString( void ) const;
-      std::string ToString( void );
+      std::string ToString( void ) const;
 
       template <typename TImageType>
       explicit PixelContainer( TImageType * image )
