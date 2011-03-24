@@ -8,7 +8,7 @@
 %}
 
 %include "arrays_java.i"
-%apply byte[]  { uint8_t *}
+%apply int[]  { int *}
 
 // Make Java method names follow the naming conventions
 // See the swig.swg file, and ruby.swg for details on how this works

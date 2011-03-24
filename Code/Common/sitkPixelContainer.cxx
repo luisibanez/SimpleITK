@@ -41,10 +41,10 @@ namespace itk
       return this->m_Internal->GetNumberOfPixels();
     }
 
-    void PixelContainer::SetBufferAsUnsignedInt8(  uint8_t * buffer, unsigned long numberOfElements )
+    void PixelContainer::SetBufferAsUnsignedInt8(  int * buffer )
     {
       assert( m_Internal );
-      return this->m_Internal->SetBufferAsUnsignedInt8( buffer, numberOfElements );
+      return this->m_Internal->SetBufferAsUnsignedInt8( buffer );
     }
 
     int8_t * PixelContainer::GetBufferAsInt8()

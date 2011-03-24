@@ -58,7 +58,7 @@ namespace itk
       float     * GetBufferAsFloat();
       double    * GetBufferAsDouble();
 
-      void   SetBufferAsUnsignedInt8( uint8_t * buffer, unsigned long numberOfElements );
+      void   SetBufferAsUnsignedInt8( int * buffer );
 
     private:
 
