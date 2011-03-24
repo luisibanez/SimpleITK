@@ -37,7 +37,14 @@ namespace itk
     virtual float     * GetBufferAsFloat() = 0;
     virtual double    * GetBufferAsDouble() = 0;
 
-    virtual void SetBufferAsUnsignedInt8( int *, unsigned long numberOfElements ) = 0;
+    virtual void SetBufferAsInt8( int8_t *, uint64_t numberOfElements ) = 0;
+    virtual void SetBufferAsUnsignedInt8( uint8_t *, uint64_t numberOfElements ) = 0;
+    virtual void SetBufferAsInt16( int16_t *, uint64_t numberOfElements ) = 0;
+    virtual void SetBufferAsUnsignedInt16( uint16_t *, uint64_t numberOfElements ) = 0;
+    virtual void SetBufferAsInt32( int32_t *, uint64_t numberOfElements ) = 0;
+    virtual void SetBufferAsUnsignedInt32( uint32_t *, uint64_t numberOfElements ) = 0;
+    virtual void SetBufferAsFloat( float *, uint64_t numberOfElements ) = 0;
+    virtual void SetBufferAsDouble( double *, uint64_t numberOfElements ) = 0;
   };
 
   ///
@@ -86,23 +93,18 @@ namespace itk
       return static_cast< uint64_t >( this->m_PixelContainer->Size() );
     }
 
-    void SetBufferAsUnsignedInt8( int * buffer, unsigned long numberOfElements )
-    {
-      typedef typename PixelContainerType::Element  ElementType;
-      ElementType * pixelBuffer = reinterpret_cast< ElementType * >( buffer );
-      this->m_PixelContainer->SetImportPointer( pixelBuffer, numberOfElements, false ); // FIXME
-//    ElementType * pixelBuffer = this->m_PixelContainer->GetImportPointer();
-//    pixelBuffer[0] = buffer[0];
-//    pixelBuffer[1] = buffer[1];
-//    pixelBuffer[2] = buffer[2];
-     std::cout << "copied three values " << buffer[0] << ", " << buffer[1] << "," << buffer[2] << std::endl;
-    }
-
     int8_t * GetBufferAsInt8()
     {
       int8_t * buffer = reinterpret_cast< int8_t * >(
         this->m_PixelContainer->GetImportPointer() );
       return buffer;
+    }
+
+    void SetBufferAsInt8( int8_t * buffer, uint64_t numberOfElements )
+    {
+      typedef typename PixelContainerType::Element ElementType;
+      ElementType * pixelBuffer = reinterpret_cast< ElementType * >( buffer );
+      this->m_PixelContainer->SetImportPointer( pixelBuffer, numberOfElements, false );
     }
 
     uint8_t * GetBufferAsUnsignedInt8()
@@ -112,11 +114,25 @@ namespace itk
       return buffer;
     }
 
+    void SetBufferAsUnsignedInt8( uint8_t * buffer, uint64_t numberOfElements )
+    {
+      typedef typename PixelContainerType::Element ElementType;
+      ElementType * pixelBuffer = reinterpret_cast< ElementType * >( buffer );
+      this->m_PixelContainer->SetImportPointer( pixelBuffer, numberOfElements, false );
+    }
+
     int16_t * GetBufferAsInt16()
     {
       int16_t * buffer = reinterpret_cast< int16_t * >(
         this->m_PixelContainer->GetImportPointer() );
       return buffer;
+    }
+
+    void SetBufferAsInt16( int16_t * buffer, uint64_t numberOfElements )
+    {
+      typedef typename PixelContainerType::Element ElementType;
+      ElementType * pixelBuffer = reinterpret_cast< ElementType * >( buffer );
+      this->m_PixelContainer->SetImportPointer( pixelBuffer, numberOfElements, false );
     }
 
     uint16_t * GetBufferAsUnsignedInt16()
@@ -126,11 +142,25 @@ namespace itk
       return buffer;
     }
 
+    void SetBufferAsUnsignedInt16( uint16_t * buffer, uint64_t numberOfElements )
+    {
+      typedef typename PixelContainerType::Element ElementType;
+      ElementType * pixelBuffer = reinterpret_cast< ElementType * >( buffer );
+      this->m_PixelContainer->SetImportPointer( pixelBuffer, numberOfElements, false );
+    }
+
     int32_t * GetBufferAsInt32()
     {
       int32_t * buffer = reinterpret_cast< int32_t * >(
         this->m_PixelContainer->GetImportPointer() );
       return buffer;
+    }
+
+    void SetBufferAsInt32( int32_t * buffer, uint64_t numberOfElements )
+    {
+      typedef typename PixelContainerType::Element ElementType;
+      ElementType * pixelBuffer = reinterpret_cast< ElementType * >( buffer );
+      this->m_PixelContainer->SetImportPointer( pixelBuffer, numberOfElements, false );
     }
 
     uint32_t * GetBufferAsUnsignedInt32()
@@ -140,11 +170,25 @@ namespace itk
       return buffer;
     }
 
+    void SetBufferAsUnsignedInt32( uint32_t * buffer, uint64_t numberOfElements )
+    {
+      typedef typename PixelContainerType::Element ElementType;
+      ElementType * pixelBuffer = reinterpret_cast< ElementType * >( buffer );
+      this->m_PixelContainer->SetImportPointer( pixelBuffer, numberOfElements, false );
+    }
+
     float * GetBufferAsFloat()
     {
       float * buffer = reinterpret_cast< float * >(
         this->m_PixelContainer->GetImportPointer() );
       return buffer;
+    }
+
+    void SetBufferAsFloat( float * buffer, uint64_t numberOfElements )
+    {
+      typedef typename PixelContainerType::Element ElementType;
+      ElementType * pixelBuffer = reinterpret_cast< ElementType * >( buffer );
+      this->m_PixelContainer->SetImportPointer( pixelBuffer, numberOfElements, false );
     }
 
     double * GetBufferAsDouble()
@@ -153,6 +197,15 @@ namespace itk
         this->m_PixelContainer->GetImportPointer() );
       return buffer;
     }
+
+    void SetBufferAsDouble( double * buffer, uint64_t numberOfElements )
+    {
+      typedef typename PixelContainerType::Element ElementType;
+      ElementType * pixelBuffer = reinterpret_cast< ElementType * >( buffer );
+      this->m_PixelContainer->SetImportPointer( pixelBuffer, numberOfElements, false );
+    }
+
+
 
 
   private:

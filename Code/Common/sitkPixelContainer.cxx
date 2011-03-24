@@ -41,16 +41,16 @@ namespace itk
       return this->m_Internal->GetNumberOfPixels();
     }
 
-    void PixelContainer::SetBufferAsUnsignedInt8(  int * buffer, unsigned long numberOfElements )
-    {
-      assert( m_Internal );
-      return this->m_Internal->SetBufferAsUnsignedInt8( buffer, numberOfElements );
-    }
-
     int8_t * PixelContainer::GetBufferAsInt8()
     {
       assert( m_Internal );
       return this->m_Internal->GetBufferAsInt8();
+    }
+
+    void PixelContainer::SetBufferAsInt8( int8_t * buffer, uint64_t numberOfElements )
+    {
+      assert( m_Internal );
+      return this->m_Internal->SetBufferAsInt8( buffer, numberOfElements );
     }
 
     uint8_t * PixelContainer::GetBufferAsUnsignedInt8()
@@ -59,10 +59,22 @@ namespace itk
       return this->m_Internal->GetBufferAsUnsignedInt8();
     }
 
+    void PixelContainer::SetBufferAsUnsignedInt8(  uint8_t * buffer, uint64_t numberOfElements )
+    {
+      assert( m_Internal );
+      return this->m_Internal->SetBufferAsUnsignedInt8( buffer, numberOfElements );
+    }
+
     int16_t * PixelContainer::GetBufferAsInt16()
     {
       assert( m_Internal );
       return this->m_Internal->GetBufferAsInt16();
+    }
+
+    void PixelContainer::SetBufferAsInt16( int16_t * buffer, uint64_t numberOfElements )
+    {
+      assert( m_Internal );
+      return this->m_Internal->SetBufferAsInt16( buffer, numberOfElements );
     }
 
     uint16_t * PixelContainer::GetBufferAsUnsignedInt16()
@@ -71,10 +83,22 @@ namespace itk
       return this->m_Internal->GetBufferAsUnsignedInt16();
     }
 
+    void PixelContainer::SetBufferAsUnsignedInt16( uint16_t * buffer, uint64_t numberOfElements )
+    {
+      assert( m_Internal );
+      return this->m_Internal->SetBufferAsUnsignedInt16( buffer, numberOfElements );
+    }
+
     int32_t * PixelContainer::GetBufferAsInt32()
     {
       assert( m_Internal );
       return this->m_Internal->GetBufferAsInt32();
+    }
+
+    void PixelContainer::SetBufferAsInt32(  int32_t * buffer, uint64_t numberOfElements )
+    {
+      assert( m_Internal );
+      return this->m_Internal->SetBufferAsInt32( buffer, numberOfElements );
     }
 
     uint32_t * PixelContainer::GetBufferAsUnsignedInt32()
@@ -83,16 +107,34 @@ namespace itk
       return this->m_Internal->GetBufferAsUnsignedInt32();
     }
 
+    void PixelContainer::SetBufferAsUnsignedInt32(  uint32_t * buffer, uint64_t numberOfElements )
+    {
+      assert( m_Internal );
+      return this->m_Internal->SetBufferAsUnsignedInt32( buffer, numberOfElements );
+    }
+
     float * PixelContainer::GetBufferAsFloat()
     {
       assert( m_Internal );
       return this->m_Internal->GetBufferAsFloat();
     }
 
+    void PixelContainer::SetBufferAsFloat(float * buffer, uint64_t numberOfElements )
+    {
+      assert( m_Internal );
+      return this->m_Internal->SetBufferAsFloat( buffer, numberOfElements );
+    }
+
     double * PixelContainer::GetBufferAsDouble()
     {
       assert( m_Internal );
       return this->m_Internal->GetBufferAsDouble();
+    }
+
+    void PixelContainer::SetBufferAsDouble(  double * buffer, uint64_t numberOfElements )
+    {
+      assert( m_Internal );
+      return this->m_Internal->SetBufferAsDouble( buffer, numberOfElements );
     }
 
   }

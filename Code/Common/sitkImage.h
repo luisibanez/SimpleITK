@@ -22,7 +22,6 @@ namespace simple
   // idiom.
   class PimpleImageBase;
 
-
   class PixelContainer;
 
   /** \class Image
