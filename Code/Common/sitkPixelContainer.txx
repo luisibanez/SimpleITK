@@ -37,7 +37,7 @@ namespace itk
     virtual float     * GetBufferAsFloat() = 0;
     virtual double    * GetBufferAsDouble() = 0;
 
-    virtual void SetBufferAsUnsignedInt8( int * ) = 0;
+    virtual void SetBufferAsUnsignedInt8( int *, unsigned long numberOfElements ) = 0;
   };
 
   ///
@@ -86,11 +86,16 @@ namespace itk
       return static_cast< uint64_t >( this->m_PixelContainer->Size() );
     }
 
-    void SetBufferAsUnsignedInt8( int * buffer )
+    void SetBufferAsUnsignedInt8( int * buffer, unsigned long numberOfElements )
     {
-      typedef typename TImageType::PixelType  PixelType;
-      // PixelType * pixelBuffer = reinterpret_cast< PixelType * >( buffer );
-      this->m_PixelContainer->SetImportPointer( NULL, 1000, false ); // FIXME
+      typedef typename PixelContainerType::Element  ElementType;
+      ElementType * pixelBuffer = reinterpret_cast< ElementType * >( buffer );
+      this->m_PixelContainer->SetImportPointer( pixelBuffer, numberOfElements, false ); // FIXME
+//    ElementType * pixelBuffer = this->m_PixelContainer->GetImportPointer();
+//    pixelBuffer[0] = buffer[0];
+//    pixelBuffer[1] = buffer[1];
+//    pixelBuffer[2] = buffer[2];
+     std::cout << "copied three values " << buffer[0] << ", " << buffer[1] << "," << buffer[2] << std::endl;
     }
 
     int8_t * GetBufferAsInt8()

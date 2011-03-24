@@ -5,7 +5,6 @@
 
 #include "sitkDetail.h"
 #include "sitkPixelIDTokens.h"
-#include "sitkPixelContainer.h"
 #include "sitkNonCopyable.h"
 #include "sitkEnableIf.h"
 #include "itkDataObject.h"
@@ -22,6 +21,9 @@ namespace simple
   // ITK. A pointer to the implementation is used as per the pimple
   // idiom.
   class PimpleImageBase;
+
+
+  class PixelContainer;
 
   /** \class Image
    * \brief The main Image class for SimpleITK
