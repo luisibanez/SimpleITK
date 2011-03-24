@@ -37,6 +37,7 @@ namespace itk
     virtual float     * GetBufferAsFloat() = 0;
     virtual double    * GetBufferAsDouble() = 0;
 
+    virtual void SetBufferAsUnsignedInt8( uint8_t *, unsigned long numberOfElements ) = 0;
   };
 
   ///
@@ -83,6 +84,15 @@ namespace itk
     uint64_t GetNumberOfPixels( void ) const
     {
       return static_cast< uint64_t >( this->m_PixelContainer->Size() );
+    }
+
+    void SetBufferAsUnsignedInt8( uint8_t * buffer, unsigned long numberOfElements )
+    {
+      typedef typename TImageType::PixelType  PixelType;
+      // PixelType * pixelBuffer = reinterpret_cast< PixelType * >( buffer );
+      typedef typename PixelContainerType::ElementIdentifier  ElementIdentifier;
+      ElementIdentifier number = numberOfElements;
+      this->m_PixelContainer->SetImportPointer( NULL, number, false ); // FIXME
     }
 
     int8_t * GetBufferAsInt8()

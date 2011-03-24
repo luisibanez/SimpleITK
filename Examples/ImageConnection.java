@@ -17,16 +17,13 @@ class ImageConnection {
     }
 
     ImageFileReader reader = new ImageFileReader();
+
     reader.setFileName(argv[0]);
-    SmartPointerImage img = reader.execute();
 
-    SmartPointerPixelContainer pixelsContainer = img.getPixelContainer();
+    Image img = reader.execute();
 
-    int8Array pixelsArray = int8Array.frompointer( pixelsContainer.getBufferAsInt8() );
+    PixelContainer pixelsContainer = img.getPixelContainer();
 
-    java.math.BigInteger numberOfPixels = pixelsContainer.getNumberOfPixels();
-
-    int8Array anotherPixelsArray = new int8Array( numberOfPixels.longValue(), true );
 
   }
 

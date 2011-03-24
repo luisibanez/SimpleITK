@@ -58,6 +58,8 @@ namespace itk
       float     * GetBufferAsFloat();
       double    * GetBufferAsDouble();
 
+      void   SetBufferAsUnsignedInt8( uint8_t * buffer, unsigned long numberOfElements );
+
     private:
 
       /** Method called my certain constructors to convert ITK images
