@@ -206,8 +206,6 @@ namespace itk
     }
 
 
-
-
   private:
     PixelContainerPointer   m_PixelContainer;
   };
