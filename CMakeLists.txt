@@ -7,12 +7,6 @@ if(ITK_FOUND)
   include(${ITK_USE_FILE})
 endif()
 
-if( NOT ITK_USE_REVIEW )
-# TODO need to check ITK configuration to verify that it has the needed modules
-#  message(FATAL_ERROR "Please reconfigure ITK by turning ITK_USE_REVIEW ON")
-endif()
-
-
 # Put all files in a bin directory to keep things tidy.
 # Output directories.
 if(NOT LIBRARY_OUTPUT_PATH)
