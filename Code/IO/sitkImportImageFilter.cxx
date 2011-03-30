@@ -16,6 +16,19 @@
 namespace itk {
   namespace simple {
 
+   ImportImageFilter::ImportImageFilter() {
+      this->m_BufferInt8 = NULL;
+      this->m_BufferUnsignedInt8 = NULL;
+      this->m_BufferInt16 = NULL;
+      this->m_BufferUnsignedInt16 = NULL;
+      this->m_BufferInt32 = NULL;
+      this->m_BufferUnsignedInt32 = NULL;
+      this->m_BufferLong = NULL;
+      this->m_BufferUnsignedLong = NULL;
+      this->m_BufferFloat = NULL;
+      this->m_BufferDouble = NULL;
+      }
+
     void ImportImageFilter::SetSpacing( const std::vector< double > &spacing ) {
       this->m_Spacing = spacing;
       }
@@ -27,6 +40,39 @@ namespace itk {
     void ImportImageFilter::SetSize( const std::vector< unsigned int > &size ) {
       this->m_Size = size;
       }
+
+    void ImportImageFilter::SetBufferAsInt8( int8_t * buffer ) {
+      this->m_BufferInt8 = buffer;
+      }
+    void ImportImageFilter::SetBufferAsUnsignedInt8( uint8_t * buffer ) {
+      this->m_BufferUnsignedInt8 = buffer;
+      }
+    void ImportImageFilter::SetBufferAsInt16( int16_t * buffer ) {
+      this->m_BufferInt16 = buffer;
+      }
+    void ImportImageFilter::SetBufferAsUnsignedInt16( uint16_t * buffer ) {
+      this->m_BufferUnsignedInt16 = buffer;
+      }
+    void ImportImageFilter::SetBufferAsInt32( int32_t * buffer ) {
+      this->m_BufferInt32 = buffer;
+      }
+    void ImportImageFilter::SetBufferAsUnsignedInt32( uint32_t * buffer ) {
+      this->m_BufferUnsignedInt32 = buffer;
+      }
+    void ImportImageFilter::SetBufferAsLong( long * buffer ) {
+      this->m_BufferLong = buffer;
+      }
+    void ImportImageFilter::SetBufferAsUnsignedLong( unsigned long * buffer ) {
+      this->m_BufferUnsignedLong = buffer;
+      }
+
+    void ImportImageFilter::SetBufferAsFloat( float * buffer ) {
+      this->m_BufferFloat = buffer;
+      }
+    void ImportImageFilter::SetBufferAsDouble( double * buffer ) {
+      this->m_BufferDouble = buffer;
+      }
+
 
     Image * ImportImageFilter::Execute () {
 
@@ -65,34 +111,34 @@ namespace itk {
     switch(componentType)
     {
     case itk::ImageIOBase::CHAR:
-      return this->ExecuteInternalScalar< itk::Image<int8_t, VImageDimension> >( );
+      return this->ExecuteInternalScalar< itk::Image<int8_t, VImageDimension> >( this->m_BufferInt8 );
       break;
     case itk::ImageIOBase::UCHAR:
-      return this->ExecuteInternalScalar< itk::Image<uint8_t, VImageDimension> >( );
+      return this->ExecuteInternalScalar< itk::Image<uint8_t, VImageDimension> >( this->m_BufferUnsignedInt8 );
       break;
     case itk::ImageIOBase::SHORT:
-      return this->ExecuteInternalScalar< itk::Image<int16_t, VImageDimension> >( );
+      return this->ExecuteInternalScalar< itk::Image<int16_t, VImageDimension> >( this->m_BufferInt16 );
       break;
     case itk::ImageIOBase::USHORT:
-      return this->ExecuteInternalScalar< itk::Image<uint16_t, VImageDimension> >( );
+      return this->ExecuteInternalScalar< itk::Image<uint16_t, VImageDimension> >( this->m_BufferUnsignedInt16 );
       break;
     case itk::ImageIOBase::INT:
-      return this->ExecuteInternalScalar< itk::Image<int32_t, VImageDimension> >( );
+      return this->ExecuteInternalScalar< itk::Image<int32_t, VImageDimension> >( this->m_BufferInt32 );
       break;
     case itk::ImageIOBase::UINT:
-      return this->ExecuteInternalScalar< itk::Image<uint32_t, VImageDimension> >( );
+      return this->ExecuteInternalScalar< itk::Image<uint32_t, VImageDimension> >( this->m_BufferUnsignedInt32 );
       break;
     case itk::ImageIOBase::LONG:
-      return this->ExecuteInternalScalar< itk::Image<long, VImageDimension> >( );
+      return this->ExecuteInternalScalar< itk::Image<long, VImageDimension> >( this->m_BufferLong );
       break;
     case itk::ImageIOBase::ULONG:
-      return this->ExecuteInternalScalar< itk::Image<unsigned long, VImageDimension> >( );
+      return this->ExecuteInternalScalar< itk::Image<unsigned long, VImageDimension> >( this->m_BufferUnsignedLong );
       break;
     case itk::ImageIOBase::FLOAT:
-      return this->ExecuteInternalScalar< itk::Image<float, VImageDimension> >( );
+      return this->ExecuteInternalScalar< itk::Image<float, VImageDimension> >( this->m_BufferFloat );
       break;
     case itk::ImageIOBase::DOUBLE:
-      return this->ExecuteInternalScalar< itk::Image<double, VImageDimension> >( );
+      return this->ExecuteInternalScalar< itk::Image<double, VImageDimension> >( this->m_BufferDouble );
       break;
     case itk::ImageIOBase::UNKNOWNCOMPONENTTYPE:
     default:
@@ -105,8 +151,6 @@ namespace itk {
   template < unsigned int VImageDimension >
   Image* ImportImageFilter::ExecuteInternalImportVector( IOComponentType componentType )
   {
-      return this->ExecuteInternalVector< itk::VectorImage<signed char, VImageDimension> >( );
-#if 0
     switch(componentType)
     {
     case itk::ImageIOBase::CHAR:
@@ -144,13 +188,12 @@ namespace itk {
       assert( false ); // should never get here unless we forgot a type
       return NULL;
     }
-#endif
   }
 
 
   template <class TImageType>
   typename EnableIf<IsInstantiated<TImageType>::Value, Image* >::Type
-  ImportImageFilter::ExecuteInternalScalar( void )
+  ImportImageFilter::ExecuteInternalScalar( typename TImageType::PixelType * pixelDataBuffer )
   {
 
     typedef TImageType                        ImageType;
@@ -192,13 +235,11 @@ namespace itk {
 
     bool TheImportFilterWillTakeCareOfDeletingTheMemoryBuffer = false;
 
-    PixelType * buffer = NULL;   // FIXME
-
     //
     // Connect the Buffer
     //
     importer->SetImportPointer(
-      buffer,
+      pixelDataBuffer,
       region.GetNumberOfPixels(),
       TheImportFilterWillTakeCareOfDeletingTheMemoryBuffer);
 
@@ -243,7 +284,7 @@ namespace itk {
 
   template <class TImageType>
   typename DisableIf<IsInstantiated<TImageType>::Value, Image* >::Type
-  ImportImageFilter::ExecuteInternalScalar( void )
+  ImportImageFilter::ExecuteInternalScalar( typename TImageType::PixelType * buffer )
   {
     typedef TImageType                      ImageType;
     sitkExceptionMacro( << "PixelType is not supported!" << std::endl
