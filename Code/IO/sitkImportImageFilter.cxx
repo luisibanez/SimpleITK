@@ -16,6 +16,18 @@
 namespace itk {
   namespace simple {
 
+    void ImportImageFilter::SetSpacing( const std::vector< double > &spacing ) {
+      this->m_Spacing = spacing;
+      }
+
+    void ImportImageFilter::SetOrigin( const std::vector< double > &origin ) {
+      this->m_Origin = origin;
+      }
+
+    void ImportImageFilter::SetSize( const std::vector< unsigned int > &size ) {
+      this->m_Size = size;
+      }
+
     Image * ImportImageFilter::Execute () {
 
       Image * image = NULL;
@@ -148,16 +160,47 @@ namespace itk {
     typedef itk::ImportImageFilter<PixelType,Dimension> Importer;
 
     // if the InstantiatedToken is correctly implemented this should
-    // not occour
+    // not occur
     assert( ImageTypeToPixelIDValue<ImageType>::Result != (int)sitkUnknown );
 
     typename Importer::Pointer importer = Importer::New();
 
     //
-    //  TODO: FIXME:  Add here all the image information
+    //  Origin
     //
-    //  Origin, Spacing, Direction, Buffer,...
+    typename ImageType::PointType origin;
+    std::copy( this->m_Origin.begin(), this->m_Origin.end(), origin.Begin() );
+    importer->SetOrigin( origin );
+
     //
+    //  Spacing
+    //
+    typename ImageType::SpacingType spacing;
+    std::copy( this->m_Spacing.begin(), this->m_Spacing.end(), spacing.Begin() );
+    importer->SetSpacing( spacing );
+
+    //
+    //  Size and Region
+    //
+    typename ImageType::RegionType region;
+    typename ImageType::SizeType size;
+    for(unsigned int si = 0; si < Dimension; si++ ) {
+      size[si] = this->m_Spacing[si];
+      }
+    region.SetSize(size);
+    importer->SetRegion( region );
+
+    bool TheImportFilterWillTakeCareOfDeletingTheMemoryBuffer = false;
+
+    PixelType * buffer = NULL;   // FIXME
+
+    //
+    // Connect the Buffer
+    //
+    importer->SetImportPointer(
+      buffer,
+      region.GetNumberOfPixels(),
+      TheImportFilterWillTakeCareOfDeletingTheMemoryBuffer);
 
     importer->Update();
 

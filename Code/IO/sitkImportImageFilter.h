@@ -26,6 +26,10 @@ namespace itk {
       Image* Execute();
       typedef Image* (Self::*MemberFunctionType)( Image* );
 
+      void SetSpacing( const std::vector< double > &spacing );
+      void SetOrigin( const std::vector< double > &origin );
+      void SetSize( const std::vector< unsigned int > &size );
+
     protected:
 
       typedef itk::ImageIOBase::IOComponentType      IOComponentType;
@@ -59,6 +63,10 @@ namespace itk {
       IOComponentType  m_PixelComponentType;
 
       unsigned int     m_ImageDimension;
+
+      std::vector< double >         m_Origin;
+      std::vector< double >         m_Spacing;
+      std::vector< unsigned int >   m_Size;
     };
   }
 }
