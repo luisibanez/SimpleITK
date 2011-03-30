@@ -68,6 +68,7 @@ typedef unsigned int uint32_t;
 %include "sitkImageFilter.h"
 %include "sitkImageFileWriter.h"
 %include "sitkImageFileReader.h"
+%include "sitkImportImageFilter.h"
 %include "sitkHashImageFilter.h"
 %include "sitkStatisticsImageFilter.h"
 %include "sitkExtractImageFilter.h"
